@@ -54,5 +54,59 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
+        public async Task<object> Delete(int termekId)
+        {
+            try
+            {
+                var termek = await _context.Termeks.FirstOrDefaultAsync(x => x.TermekId == termekId);
+                if (termek != null)
+                {
+                    _responseDto.Message = "A termék nem található.";
+                    _responseDto.Result = null;
+                    return _responseDto;
+                }
+                _context.Termeks.Remove(termek);
+                await _context.SaveChangesAsync();
+                _responseDto.Message = "Sikeres törlés!";
+                _responseDto.Result = termek;
+                return _responseDto;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
+        public async Task<object> Update(int termekId, UpdateTermekDto updateTermekDto)
+        {
+            try
+            {
+                var ujTermek = await _context.Termeks.FirstOrDefaultAsync(x => x.TermekId == termekId);
+                if (ujTermek != null)
+                {
+                    ujTermek.TermekNev = updateTermekDto.TermekNev;
+                    ujTermek.Ar = updateTermekDto.Ar;
+
+                    _context.Termeks.Update(ujTermek);
+                    await _context.SaveChangesAsync();
+                    _responseDto.Message = "Sikeres frissítés.";
+                    _responseDto.Result = null;
+                    return _responseDto;
+                }
+                else
+                {
+                    _responseDto.Message = "A termék nem található.";
+                    _responseDto.Result = null;
+                    return _responseDto;
+                }
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
     }
 }

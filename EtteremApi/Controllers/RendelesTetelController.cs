@@ -14,7 +14,7 @@ namespace EtteremApi.Controllers
             _rendelesTetel = rendelesTetel;
         }
         [HttpGet]
-        public async Task<ActionResult> GetAllTermek()
+        public async Task<ActionResult> GetAllRendelesTetel()
         {
             try
             {

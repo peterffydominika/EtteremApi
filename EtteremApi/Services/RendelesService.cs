@@ -54,5 +54,59 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
+        public async Task<object> Delete(int rendelesId)
+        {
+            try
+            {
+                var rendeles = await _context.Rendeles.FirstOrDefaultAsync(x => x.RendelesId == rendelesId);
+                if (rendeles != null)
+                {
+                    _responseDto.Message = "A rendelés nem található.";
+                    _responseDto.Result = null;
+                    return _responseDto;
+                }
+                _context.Rendeles.Remove(rendeles);
+                await _context.SaveChangesAsync();
+                _responseDto.Message = "Sikeres törlés!";
+                _responseDto.Result = rendeles;
+                return _responseDto;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
+        public async Task<object> Update(int rendelesId, UpdateRendelesDto updateRendelesDto)
+        {
+            try
+            {
+                var ujRendeles = await _context.Rendeles.FirstOrDefaultAsync(x => x.RendelesId == rendelesId);
+                if (ujRendeles != null)
+                {
+                    ujRendeles.AsztalSzam = updateRendelesDto.AsztalSzam;
+                    ujRendeles.FizetesMod = updateRendelesDto.FizetesMod;
+
+                    _context.Rendeles.Update(ujRendeles);
+                    await _context.SaveChangesAsync();
+                    _responseDto.Message = "Sikeres frissítés.";
+                    _responseDto.Result = null;
+                    return _responseDto;
+                }
+                else
+                {
+                    _responseDto.Message = "A rendelés nem található.";
+                    _responseDto.Result = null;
+                    return _responseDto;
+                }
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
     }
 }

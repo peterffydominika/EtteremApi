@@ -36,5 +36,56 @@ namespace EtteremApi.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(AddTermekDto addTermekDto)
+        {
+            try
+            {
+                var requestResult = await _termek.Post(addTermekDto);
+                return StatusCode(201, requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpDelete("{termekId}")]
+        public async Task<IActionResult> Delete(int termekId)
+        {
+            try
+            {
+                var requestResult = await _termek.Delete(termekId);
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPut("{termekId}")]
+        public async Task<IActionResult> Update(int termekId, UpdateTermekDto updateTermekDto)
+        {
+            try
+            {
+                var requestResult = await _termek.Update(termekId, updateTermekDto);
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

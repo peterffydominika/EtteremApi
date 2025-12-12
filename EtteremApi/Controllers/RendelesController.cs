@@ -47,5 +47,37 @@ namespace EtteremApi.Controllers
                 });
             }
         }
+        [HttpDelete("{rendelesId}")]
+        public async Task<IActionResult> Delete(int rendelesId)
+        {
+            try
+            {
+                var requestResult = await _rendeles.Delete(rendelesId);
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
+        [HttpPut("{rendelesId}")]
+        public async Task<IActionResult> Update(int rendelesId, UpdateRendelesDto updateRendelesDto)
+        {
+            try
+            {
+                var requestResult = await _rendeles.Update(rendelesId, updateRendelesDto);
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }
