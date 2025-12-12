@@ -1,31 +1,24 @@
-﻿using EtteremApi.Models;
-using EtteremApi.Models.Dtos;
-using EtteremApi.Services.Etterem;
+﻿using EtteremApi.Services.Etterem;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EtteremApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TermekController : ControllerBase
+    public class RendelesTetelController : ControllerBase
     {
-        private readonly EtteremContext _context;
-        private readonly ITermek _termek;
-
-        public TermekController(EtteremContext context, ITermek termek)
+        private readonly IRendelesTetel _rendelesTetel;
+        public RendelesTetelController(IRendelesTetel rendelesTetel)
         {
-            _context = context;
-            _termek = termek;
+            _rendelesTetel = rendelesTetel;
         }
-
         [HttpGet]
         public async Task<ActionResult> GetAllTermek()
         {
             try
             {
-                var requestResult = await _termek.GetAllTermek();
+                var requestResult = await _rendelesTetel.GetAllRendelesTetel();
                 return Ok(requestResult);
             }
             catch (Exception ex)

@@ -30,5 +30,29 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
+
+        public async Task<object> Post(AddRendelesDto addRendelesDto)
+        {
+            try
+            {
+                var rendeles = new Rendeles
+                {
+                    AsztalSzam = addRendelesDto.AsztalSzam,
+                    FizetesMod = addRendelesDto.FizetesMod
+                };
+
+                await _context.Rendeles.AddAsync(rendeles);
+                await _context.SaveChangesAsync();
+                _responseDto.Message = "Sikeres hozzáadás!";
+                _responseDto.Result = rendeles;
+                return _responseDto;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
     }
 }

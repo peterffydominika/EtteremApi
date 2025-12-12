@@ -16,6 +16,7 @@ namespace EtteremApi
             builder.Services.AddScoped<IRendeles, RendelesService>();
             builder.Services.AddScoped<ResponseDto>();
             builder.Services.AddScoped<ITermek, TermekService>();
+            builder.Services.AddScoped<IRendelesTetel, RendelesTetelService>();
 
             // Add services to the container.
 
