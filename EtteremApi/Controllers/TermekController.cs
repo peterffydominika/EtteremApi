@@ -1,5 +1,6 @@
 ﻿using EtteremApi.Models;
 using EtteremApi.Models.Dtos;
+using EtteremApi.Services.Etterem;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,32 @@ namespace EtteremApi.Controllers
     public class TermekController : ControllerBase
     {
         private readonly EtteremContext _context;
-        public TermekController(EtteremContext context)
+        private readonly ITermek _termek;
+
+        public TermekController(EtteremContext context, ITermek termek)
         {
             _context = context;
+            _termek = termek;
         }
 
-        [HttpPost("TermékFelvitele")]
+        [HttpGet]
+        public async Task<ActionResult> GetAllTermek()
+        {
+            try
+            {
+                var requestResult = await _termek.GetAllTermek();
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost("TermekFelvitele")]
         public async Task<IActionResult> TermekFelvitele(AddTermekDto addTermekDto)
         {
             try
@@ -26,19 +47,11 @@ namespace EtteremApi.Controllers
                     TermekNev = addTermekDto.TermekNev,
                     Ar = addTermekDto.Ar
                 };
-                if (termek != null)
+                await _context.Termeks.AddAsync(termek);
+                await _context.SaveChangesAsync();
+                return StatusCode(201, new
                 {
-                    await _context.Termeks.AddAsync(termek);
-                    await _context.SaveChangesAsync();
-                    return StatusCode(201, new
-                    {
-                        message = "Sikeres hozzáadás!",
-                        result = termek
-                    });
-                }
-                return StatusCode(404, new
-                {
-                    message = "Sikertelen hozzáadás!",
+                    message = "Sikeres hozzáadás!",
                     result = termek
                 });
             }

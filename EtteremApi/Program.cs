@@ -1,4 +1,9 @@
 
+using EtteremApi.Models;
+using EtteremApi.Models.Dtos;
+using EtteremApi.Services;
+using EtteremApi.Services.Etterem;
+
 namespace EtteremApi
 {
     public class Program
@@ -6,6 +11,11 @@ namespace EtteremApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<EtteremContext>();
+            builder.Services.AddScoped<IRendeles, RendelesService>();
+            builder.Services.AddScoped<ResponseDto>();
+            builder.Services.AddScoped<ITermek, TermekService>();
 
             // Add services to the container.
 
