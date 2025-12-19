@@ -108,5 +108,22 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
+
+        public async Task<object> GetAllTermekNevAr()
+        {
+            try
+            {
+                var termekek = await _context.Termeks.Select(t => new GetTermekNevArDto { TermekNev = t.TermekNev, Ar = t.Ar }).ToListAsync();
+                _responseDto.Message = "Sikeres lekérdezés!";
+                _responseDto.Result = termekek;
+                return _responseDto;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
     }
 }

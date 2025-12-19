@@ -87,5 +87,23 @@ namespace EtteremApi.Controllers
                 });
             }
         }
+
+        //2.Feladat
+        [HttpGet("nev-ar")]
+        public async Task<ActionResult> GetAllTermekNevAr()
+        {
+            try
+            {
+                var requestResult = await _termek.GetAllTermekNevAr();
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

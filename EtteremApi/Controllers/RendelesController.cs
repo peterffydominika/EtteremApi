@@ -15,6 +15,7 @@ namespace EtteremApi.Controllers
         {
             _rendeles = rendeles;
         }
+        //1.Feladat
         [HttpGet]
         public async Task<ActionResult> GetAllRendeles()
         {
