@@ -103,5 +103,26 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
+        //8.Feladat
+        //public async Task<object> GetRendelesTermekCount()
+        //{
+        //    try
+        //    {
+        //        var kolaRendelesek = await _context.Rendelestetels
+        //            .Include(rt => rt.Rendeles)
+        //            .Include(rt => rt.Termek)
+        //            .Select(rt => new { rt.Rendeles.RendelesId })
+        //            .ToListAsync();
+        //        _responseDto.Message = "Sikeres lekérdezés!";
+        //        _responseDto.Result = kolaRendelesek;
+        //        return _responseDto;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _responseDto.Message = ex.Message;
+        //        _responseDto.Result = null;
+        //        return _responseDto;
+        //    }
+        //}
     }
 }
