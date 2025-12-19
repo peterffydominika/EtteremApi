@@ -5,6 +5,7 @@
         Task<object> GetAllRendelesTetel();
         Task<object> GetAllRendelesTetelekkel();
         Task<object> GetRendelesekTetelekkel();
+        Task<object> GetKolaRendeles();
 
     }
 }

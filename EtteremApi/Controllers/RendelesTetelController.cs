@@ -61,5 +61,21 @@ namespace EtteremApi.Controllers
                 });
             }
         }
+        [HttpGet("KolaRendelesek")]
+        public async Task<ActionResult> GetKolaRendeles()
+        {
+            try
+            {
+                var requestResult = await _rendelesTetel.GetKolaRendeles();
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
-        //5.Feladat
+        //5.Feladat - Nem jó
         public async Task<object> GetRendelesekTetelekkel()
         {
             try
@@ -65,6 +65,35 @@ namespace EtteremApi.Services
                     .ToListAsync();
                 _responseDto.Message = "Sikeres lekérdezés!";
                 _responseDto.Result = rendelestetelek;
+                return _responseDto;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
+        //7.Feladat
+        public async Task<object> GetKolaRendeles()
+        {
+            try
+            {
+                var kolaRendelesek = await _context.Rendelestetels
+                    .Include(rt => rt.Rendeles)
+                    .Include(rt => rt.Termek)
+                    .Where(rt => rt.Termek.TermekNev == "Kóla")
+                    .Select(rt => new
+                    {
+                        rt.Rendeles.RendelesId,
+                        rt.Rendeles.AsztalSzam,
+                        rt.Rendeles.FizetesMod,
+                        rt.Termek.TermekNev,
+                        rt.Termek.Ar
+                    })
+                    .ToListAsync();
+                _responseDto.Message = "Sikeres lekérdezés!";
+                _responseDto.Result = kolaRendelesek;
                 return _responseDto;
             }
             catch (Exception ex)
