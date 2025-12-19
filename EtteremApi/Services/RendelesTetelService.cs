@@ -52,5 +52,27 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
+        //5.Feladat
+        public async Task<object> GetRendelesekTetelekkel()
+        {
+            try
+            {
+                var rendelestetelek = await _context.Rendelestetels
+                    .Include(rt => rt.Rendeles)
+                    .Include(rt => rt.Termek)
+                    .Select(rt => new { rt.Rendeles.RendelesId, rt.Termek.TermekNev, rt.Termek.Ar })
+                    .GroupBy(rt => rt.RendelesId)
+                    .ToListAsync();
+                _responseDto.Message = "Sikeres lekérdezés!";
+                _responseDto.Result = rendelestetelek;
+                return _responseDto;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
     }
 }

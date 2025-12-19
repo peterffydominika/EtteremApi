@@ -4,5 +4,7 @@
     {
         Task<object> GetAllRendelesTetel();
         Task<object> GetAllRendelesTetelekkel();
+        Task<object> GetRendelesekTetelekkel();
+
     }
 }

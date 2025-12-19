@@ -45,5 +45,21 @@ namespace EtteremApi.Controllers
                 });
             }
         }
+        [HttpGet("Rendelesek-tetelekkel-csoportositva")]
+        public async Task<ActionResult> GetRendelesekTetelekkel()
+        {
+            try
+            {
+                var requestResult = await _rendelesTetel.GetRendelesekTetelekkel();
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }
