@@ -29,5 +29,21 @@ namespace EtteremApi.Controllers
                 });
             }
         }
+        [HttpGet("Rendelesek-tetelek")]
+        public async Task<ActionResult> GetAllRendelesTetelekkel()
+        {
+            try
+            {
+                var requestResult = await _rendelesTetel.GetAllRendelesTetelekkel();
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

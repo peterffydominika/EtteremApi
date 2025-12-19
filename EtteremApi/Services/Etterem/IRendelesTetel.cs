@@ -3,5 +3,6 @@
     public interface IRendelesTetel
     {
         Task<object> GetAllRendelesTetel();
+        Task<object> GetAllRendelesTetelekkel();
     }
 }
