@@ -30,7 +30,6 @@ namespace EtteremApi.Services
                 return _responseDto;
             }
         }
-
         public async Task<object> Post(AddRendelesDto addRendelesDto)
         {
             try
@@ -100,6 +99,23 @@ namespace EtteremApi.Services
                     _responseDto.Result = null;
                     return _responseDto;
                 }
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.Result = null;
+                return _responseDto;
+            }
+        }
+        //3.Feladat
+        public async Task<object> GetRendelesCard()
+        {
+            try
+            {
+                var rendelesek = await _context.Rendeles.Where(r => r.FizetesMod == "Bankkártya").Select(r => r.RendelesId).ToListAsync();
+                _responseDto.Message = "Sikeres lekérdezés!";
+                _responseDto.Result = rendelesek;
+                return _responseDto;
             }
             catch (Exception ex)
             {

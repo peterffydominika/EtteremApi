@@ -8,5 +8,6 @@ namespace EtteremApi.Services.Etterem
         Task<object> Post(AddRendelesDto addRendelesDto);
         Task<object> Delete(int rendelesId);
         Task<object> Update(int rendelesId, UpdateRendelesDto updateRendelesDto);
+        Task<object> GetRendelesCard();
     }
 }

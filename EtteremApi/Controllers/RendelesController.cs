@@ -80,5 +80,21 @@ namespace EtteremApi.Controllers
                 });
             }
         }
+        [HttpGet("RendelesCard")]
+        public async Task<IActionResult> GetRendelesCard()
+        {
+            try
+            {
+                var requestResult = await _rendeles.GetRendelesCard();
+                return Ok(requestResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }
